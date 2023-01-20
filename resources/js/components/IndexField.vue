@@ -9,6 +9,7 @@
 
 <script>
 import TranslatableField from '../mixins/TranslatableField';
+
 export default {
   mixins: [TranslatableField],
   props: ['resourceName', 'resourceId', 'resource', 'field'],

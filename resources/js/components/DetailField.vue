@@ -25,6 +25,7 @@
 <script>
 import TranslatableField from '../mixins/TranslatableField';
 import LocaleTabs from './LocaleTabs';
+
 export default {
   components: { LocaleTabs },
   mixins: [TranslatableField],

@@ -124,7 +124,7 @@ class TranslatableFieldMixin
     {
         return function ($locales, $rules) {
             $setRule = function ($locale, $rules) {
-                if (! in_array($locale, array_keys(FieldServiceProvider::getLocales()))) {
+                if (!in_array($locale, array_keys(FieldServiceProvider::getLocales()))) {
                     throw new Exception("Invalid locale specified ({$locale})");
                 }
 
@@ -144,7 +144,7 @@ class TranslatableFieldMixin
             // Array of locales or callable rules
             if (is_array($locales) || is_callable($rules)) {
                 // Single locale with callable rules
-                if (! is_array($locales)) {
+                if (!is_array($locales)) {
                     return $setRule($locales, call_user_func($rules, $locales));
                 }
                 foreach ($locales as $locale) {

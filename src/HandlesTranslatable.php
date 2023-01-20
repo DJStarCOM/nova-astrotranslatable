@@ -2,6 +2,8 @@
 
 namespace DJStarCOM\NovaAstrotranslatable;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 trait HandlesTranslatable
@@ -25,10 +27,17 @@ trait HandlesTranslatable
             }
 
             foreach ($attributeRules['translatable'] as $locale => $localeRules) {
+                $newRuleAttribute = $attribute;
+                $pos = strrpos($attribute, '.*');
+                if ($pos !== false) $newRuleAttribute = substr_replace($attribute, '', $pos, strlen('.*'));
+                $newRuleAtrribute = "{$newRuleAttribute}.{$locale}";
+
                 // We copy the locale rule into the rules array
                 // i.e. ['name.fr' => ['required']]
-                $rules[str_replace('.*', '', $attribute) . ".{$locale}"] =
-                    array_merge(collect($attributeRules)->except('translatable')->toArray(), $localeRules);
+                $rules[$newRuleAtrribute] = array_merge(
+                    Arr::except($attributeRules, ['translatable']),
+                    $localeRules
+                );
 
                 // We unset the translatable locale entry since we copy the rule into the rules array
                 unset($rules[$attribute]['translatable'][$locale]);
@@ -60,5 +69,27 @@ trait HandlesTranslatable
                     : $rule;
             })->all();
         })->all();
+    }
+
+    public static function validatorForCreation(NovaRequest $request)
+    {
+        // Get rules before $request->all() call
+        $rules = static::rulesForCreation($request);
+        return Validator::make($request->all(), $rules)
+            ->after(function ($validator) use ($request) {
+                static::afterValidation($request, $validator);
+                static::afterCreationValidation($request, $validator);
+            });
+    }
+
+    public static function validatorForUpdate(NovaRequest $request, $resource = null)
+    {
+        // Get rules before $request->all() call
+        $rules = static::rulesForUpdate($request, $resource);
+        return Validator::make($request->all(), $rules)
+            ->after(function ($validator) use ($request) {
+                static::afterValidation($request, $validator);
+                static::afterUpdateValidation($request, $validator);
+            });
     }
 }

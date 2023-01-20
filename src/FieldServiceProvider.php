@@ -19,11 +19,13 @@ class FieldServiceProvider extends ServiceProvider
 
         // Serve asset(s)
         Nova::serving(static function (ServingNova $event) {
-            Nova::script('translatable-field', __DIR__ . '/../dist/js/translatable-field.js');
+            Nova::script('nova-translatable', __DIR__ . '/../dist/js/nova-translatable.js');
         });
 
         // Register mixin
         Field::mixin(new TranslatableFieldMixin);
+
+        $this->mergeConfigFrom(__DIR__ . '/../config/nova-translatable.php', 'nova-translatable');
     }
 
     protected static function isValidLocaleArray($localeArray): bool
