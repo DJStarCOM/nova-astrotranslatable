@@ -1,6 +1,6 @@
 <?php
 
-namespace KraenkVisuell\NovaAstrotranslatable;
+namespace DJStarCOM\NovaAstrotranslatable;
 
 use Exception;
 use Laravel\Nova\Fields\Textarea;

@@ -1,6 +1,6 @@
 <?php
 
-namespace KraenkVisuell\NovaAstrotranslatable;
+namespace DJStarCOM\NovaAstrotranslatable;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
@@ -10,7 +10,7 @@ use Laravel\Nova\Fields\Field;
 
 class FieldServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         // Publish configuration file
         $this->publishes([
@@ -18,7 +18,7 @@ class FieldServiceProvider extends ServiceProvider
         ], 'nova-translatable-config');
 
         // Serve asset(s)
-        Nova::serving(function (ServingNova $event) {
+        Nova::serving(static function (ServingNova $event) {
             Nova::script('translatable-field', __DIR__ . '/../dist/js/translatable-field.js');
         });
 
@@ -26,7 +26,7 @@ class FieldServiceProvider extends ServiceProvider
         Field::mixin(new TranslatableFieldMixin);
     }
 
-    protected static function isValidLocaleArray($localeArray)
+    protected static function isValidLocaleArray($localeArray): bool
     {
         return (!empty($localeArray) && is_array($localeArray) && Arr::isAssoc($localeArray));
     }
@@ -48,6 +48,7 @@ class FieldServiceProvider extends ServiceProvider
         if (in_array(request()->method(), ['PUT', 'POST'])) {
             if (substr($attribute, -2) === '.*') $attribute = substr($attribute, 0, -2);
         }
+
         return $attribute;
     }
 }

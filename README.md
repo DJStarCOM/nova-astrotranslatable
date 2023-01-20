@@ -6,8 +6,9 @@ It is made from a fork from [Optimist Digital's](https://github.com/optimistdigi
 
 ## Requirements
 
-- `laravel/nova: ^2.9 || ^3.0`
-- `astrotomic/laravel-translatable: ^11.0`
+- `php: >=8.0`,
+- `laravel/nova: ^4.0`
+- `astrotomic/laravel-translatable: ^11.5`
 
 ## Features
 
@@ -43,7 +44,7 @@ Install the package in a Laravel Nova project via Composer:
 
 ```bash
 # Install nova-translatable
-composer require kraenkvisuell/nova-astrotranslatable
+composer require DJStarCOM/nova-astrotranslatable
 
 # Publish configuration (optional, but useful for setting default locales)
 php artisan vendor:publish --tag="nova-translatable-config"
@@ -121,6 +122,8 @@ php artisan vendor:publish --tag="nova-translatable-config"
 
 ## Credits
 
+- [Kraenk Visuell GbR](https://github.com/kraenkvisuell)
+- [Ytrade Group AB](https://github.com/yaytrade)
 - [Tarvo Reinpalu](https://github.com/Tarpsvo)
 - [Optimist Digital](https://github.com/optimistdigital)
 
