@@ -44,7 +44,7 @@ Install the package in a Laravel Nova project via Composer:
 
 ```bash
 # Install nova-translatable
-composer require DJStarCOM/nova-astrotranslatable
+composer require djstarcom/nova-astrotranslatable
 
 # Publish configuration (optional, but useful for setting default locales)
 php artisan vendor:publish --tag="nova-translatable-config"
@@ -82,7 +82,7 @@ To do so, add the `->rulesFor()` on your field and the `HandlesTranslatable` tra
 `->rulesFor` accepts `array|string|callable` locales and `array|callable` rules.
 
 ```php
-use KraenkVisuell\NovaAstrotranslatable\HandlesTranslatable;
+use DJStarCOM\NovaAstrotranslatable\HandlesTranslatable;
 
 class Product extends Resource
 {
